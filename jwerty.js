@@ -156,24 +156,30 @@
             '↓': 40,
             down: 40,
             'arrow-down': 40,
-
+            
             // odities, printing characters that come out wrong:
             // Num-Multiply, or *
             '*': 106,
             star: 106,
             asterisk: 106,
             multiply: 106,
+            'num-star': 106,
             // Num-Plus or +
             '+': 107,
             'plus': 107,
+            'num-plus': 107,
             // Num-Subtract, or -
             '-': 109,
             subtract: 109,
+            'num-subtract': 109,
+            
             'num-.': 110,
             'num-period': 110,
             'num-dot': 110,
             'num-full-stop': 110,
             'num-delete': 110,
+            // Num-Slash /
+            'num-slash': 111,
             // Semicolon
             ';': 186,
             semicolon: 186,
