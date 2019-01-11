@@ -15,21 +15,9 @@
  *
  */
 (function (global, exports) {
-
-    // Try require external librairies in Node.js context
-    function tryRequire(mod) {
-        if (typeof require == 'function' && typeof module !== 'undefined' && module.exports) {
-            try {
-                return require(mod.toLowerCase());
-            } catch (err) {}
-        } else {
-            return global[mod];
-        }
-    }
-
     // Helper methods & vars:
     var $d = global.document,
-        $ = (tryRequire('jquery') || tryRequire('zepto') || tryRequire('ender') || $d),
+        $ = $d,
         $$, // Element selector function
         $b, // Event binding function
         $u, // Event unbinding function
@@ -43,28 +31,21 @@
         : Object.prototype.toString.call(v).toLowerCase().indexOf(s) > 7;
     }
 
-    if ($ === $d) {
-        $$ = function (selector, context) {
-            return selector ? $.querySelector(selector, context || $) : $;
-        };
-        $b = function (e, fn) { e.addEventListener(ke, fn, false); };
-        $u = function (e, fn) { e.removeEventListener(ke, fn, false); };
-        $f = function (e, jwertyEv) {
-            var ret = $d.createEvent('Event'),
-            i;
+    $$ = function (selector, context) {
+        return selector ? $.querySelector(selector, context || $) : $;
+    };
+    $b = function (e, fn) { e.addEventListener(ke, fn, false); };
+    $u = function (e, fn) { e.removeEventListener(ke, fn, false); };
+    $f = function (e, jwertyEv) {
+        var ret = $d.createEvent('Event'),
+        i;
 
-            ret.initEvent(ke, true, true);
+        ret.initEvent(ke, true, true);
 
-            for (i in jwertyEv) ret[i] = jwertyEv[i];
+        for (i in jwertyEv) ret[i] = jwertyEv[i];
 
-            return (e || $).dispatchEvent(ret);
-        };
-    } else {
-        $$ = function (selector, context) { return $(selector || $d, context); };
-        $b = function (e, fn) { $(e).bind(ke + '.jwerty', fn); };
-        $u = function (e, fn) { $(e).unbind(ke + '.jwerty', fn) };
-        $f = function (e, ob) { $(e || $d).trigger($.Event(ke, ob)); };
-    }
+        return (e || $).dispatchEvent(ret);
+    };
 
     // Private
     var _modProps = { 16: 'shiftKey', 17: 'ctrlKey', 18: 'altKey', 91: 'metaKey' };
